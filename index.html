@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Сладкие Слои — Авторские торты</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #fff5e9;
+      --cream-dark: #ffe8d0;
+      --pink: #ffd1dc;
+      --rose: #f8c1cc;
+      --choco: #4a2c1f;
+      --gold: #d4af37;
+      --berry: #c71585;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background: linear-gradient(to bottom, 
+        #fff5e9 0%, #fff5e9 20%,
+        #ffe8d0 20%, #ffe8d0 40%,
+        #f9e4d4 40%, #f9e4d4 60%,
+        #f8d7da 60%, #f8d7da 80%,
+        #e8c3c8 80%, #e8c3c8 100%
+      );
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .powder {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.6;
+      box-shadow: 0 0 4px rgba(255,255,255,0.9);
+      animation: fall linear infinite;
+      will-change: transform, opacity;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) scale(0.6) rotate(0deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(110vh) scale(0.4) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 245, 233, 0.75);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,200,180,0.4);
+    }
+
+    .logo {
+      font-family: 'Caveat', cursive;
+      font-size: 2.8rem;
+      color: var(--berry);
+      text-decoration: none;
+      font-weight: bold;
+      text-shadow: 0 2px 6px rgba(199,21,133,0.15);
+    }
+
+    nav a {
+      margin-left: 2rem;
+      color: #4a2c1f;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--berry);
+    }
+
+    section {
+      padding: 140px 5% 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before,
+    section::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110vw;
+      height: 180px;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.9) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    section::before { top: -90px; }
+    section::after  { bottom: -90px; }
+
+    .layer-1 { background: linear-gradient(to bottom, #fff5e9, #ffe8d0); }
+    .layer-2 { background: linear-gradient(to bottom, #ffe8d0, #f9e4d4); }
+    .layer-3 { background: linear-gradient(to bottom, #f8d7da, #e8c3c8); }
+    .layer-4 { background: linear-gradient(to bottom, #e8c3c8, #d9b0b8); }
+
+    .content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.6rem;
+      color: var(--choco);
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .text h2 span {
+      color: var(--berry);
+      font-style: italic;
+    }
+
+    .text p {
+      font-size: 1.18rem;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2.4rem;
+      background: var(--berry);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      box-shadow: 0 8px 20px rgba(199,21,133,0.25);
+      transition: all 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(199,21,133,0.35);
+      background: #d41c7f;
+    }
+
+    .cake-img {
+      position: relative;
+    }
+
+    .cake-img img {
+      width: 100%;
+      height: auto;
+      border-radius: 24px;
+      box-shadow: 
+        0 30px 60px rgba(0,0,0,0.15),
+        inset 0 0 0 12px rgba(255,255,255,0.7);
+      transform: perspective(900px) rotateY(8deg);
+      transition: transform 0.6s;
+    }
+
+    .cake-img:hover img {
+      transform: perspective(900px) rotateY(2deg) scale(1.03);
+    }
+
+    .decor {
+      position: absolute;
+      font-size: 4rem;
+      opacity: 0.15;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .decor-1 { top: -10%; left: -8%; transform: rotate(-15deg); }
+    .decor-2 { bottom: -5%; right: -10%; transform: rotate(20deg); }
+
+    footer {
+      text-align: center;
+      padding: 4rem 1rem 2rem;
+      color: #666;
+      font-size: 0.95rem;
+      background: linear-gradient(to top, #d9b0b8, #e8c3c8);
+      position: relative;
+      z-index: 2;
+    }
+
+    @media (max-width: 900px) {
+      .content {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+      }
+      section {
+        padding: 120px 4% 70px;
+      }
+      .text h2 {
+        font-size: 2.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="powder" id="powder"></div>
+
+<header>
+  <a href="#" class="logo">Cozy Cakes Cy</a>
+  <nav>
+    <a href="#catalog">Каталог</a>
+    <a href="#about">О нас</a>
+    <a href="zakaz.html">Заказать</a>
+  </nav>
+</header>
+
+<section class="layer-1" id="hero">
+  <div class="content">
+    <div class="text">
+      <h2>Торты, <span>которые хочется съесть глазами</span></h2>
+      <p>Каждый торт — это маленькое произведение искусства: нежные бисквиты, шелковистый крем, свежие ягоды и много любви. И все это своими руками!!!</p>
+      <a href="zakaz.html" class="btn">Выбрать свой торт →</a>
+    </div>
+    <div class="cake-img">
+      <img src="assets/clubCake.jpg" alt="Ягодный naked cake">
+      <div class="decor decor-1">🧁</div>
+      <div class="decor decor-2">🍰</div>
+    </div>
+  </div>
+</section>
+
+<section class="layer-2">
+  <div class="content">
+    <div class="cake-img">
+      <img src="assets/vvcakegoo.jpg" alt="Ягодный naked cake">
+    </div>
+    <div class="text">
+      <h2>Ягодный <span>naked cake</span></h2>
+      <p>Лёгкий ванильный бисквит, воздушный крем-чиз и море свежих ягод. Идеально для тех, кто любит натуральную красоту и вкус.</p>
+      <a href="zakaz.html" class="btn">Подробнее →</a>
+    </div>
+  </div>
+</section>
+
+<section class="layer-3">
+  <div class="content">
+    <div class="text">
+      <h2>Шоколадный <span>drip dream</span></h2>
+      <p>Тёмный шоколадный бисквит, нежнейший крем и фирменная шоколадная подтёк. Для настоящих сладкоежек и любителей вау-эффекта.</p>
+      <a href="zakaz.html" class="btn">Заказать →</a>
+    </div>
+    <div class="cake-img">
+      <img src="assets/nyuafsadafw.jpg" alt="Chocolate drip cake">
+    </div>
+  </div>
+</section>
+
+<section class="layer-4">
+  <div class="content">
+    <div class="cake-img">
+      <img src="assets/cungukVorone2.jpg" alt="Свадебный многоярусный торт">
+    </div>
+    <div class="text">
+      <h2>Свадебные <span>торты</span></h2>
+      <p>Многоярусные шедевры с сахарными цветами, сусальным золотом и идеальной подачей. Ваш самый важный день заслуживает самого красивого торта.</p>
+      <a href="zakaz.html" class="btn">Обсудить проект →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Cozy Cakes Cy — торты с душой и кремом</p>
+  <p>Заказы принимаем за 3–7 дней</p>
+</footer>
+
+<script>
+function createPowderParticles() {
+  const powder = document.getElementById('powder');
+  const count = 80;
+
+  for (let i = 0; i < count; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+
+    const size = Math.random() * 4 + 1;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+
+    particle.style.left = `${Math.random() * 100}vw`;
+
+    const delay = Math.random() * 20;
+    particle.style.animationDelay = `${delay}s`;
+
+    const duration = Math.random() * 18 + 12;
+    particle.style.animationDuration = `${duration}s`;
+
+    powder.appendChild(particle);
+  }
+}
+
+window.addEventListener('load', createPowderParticles);
+</script>
+
+</body>
+</html>

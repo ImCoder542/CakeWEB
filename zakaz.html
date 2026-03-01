@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Заказать торт | Сладкие Слои</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #fff5e9;
+      --cream-dark: #ffe8d0;
+      --pink: #ffd1dc;
+      --rose: #f8c1cc;
+      --choco: #4a2c1f;
+      --berry: #c71585;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #444;
+      background: linear-gradient(to bottom, #fff5e9, #ffe8d0 30%, #f8d7da 70%, #e8c3c8);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .powder {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.65;
+      box-shadow: 0 0 5px rgba(255,255,255,0.9);
+      animation: fall linear infinite;
+      will-change: transform, opacity;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-15vh) scale(0.7) rotate(0deg); opacity: 0.85; }
+      100% { transform: translateY(115vh) scale(0.3) rotate(720deg); opacity: 0; }
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.2rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,245,233,0.82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,220,200,0.5);
+    }
+
+    .logo {
+      font-family: 'Caveat', cursive;
+      font-size: 2.6rem;
+      color: var(--berry);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-btn {
+      color: var(--choco);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .back-btn:hover { color: var(--berry); }
+
+    main {
+      padding: 140px 5% 100px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem;
+      color: var(--choco);
+      text-align: center;
+      margin-bottom: 0.8rem;
+    }
+
+    h1 span { color: var(--berry); font-style: italic; }
+
+    .subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 3rem;
+    }
+
+    form {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(8px);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      box-shadow: 
+        0 20px 50px rgba(199,21,133,0.12),
+        inset 0 0 0 1px rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,240,230,0.6);
+    }
+
+    .form-group {
+      margin-bottom: 1.6rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--choco);
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border: 1px solid #ffd1dc;
+      border-radius: 12px;
+      font-size: 1rem;
+      background: #fffaf5;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--berry);
+      box-shadow: 0 0 0 3px rgba(199,21,133,0.15);
+    }
+
+    textarea { min-height: 110px; resize: vertical; }
+
+    .checkbox-group {
+      margin: 1.5rem 0;
+    }
+
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: normal;
+      color: #555;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 1.1rem;
+      background: var(--berry);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(199,21,133,0.3);
+      transition: all 0.3s;
+      margin-top: 2rem;
+    }
+
+    .submit-btn:hover {
+      background: #d41c7f;
+      transform: translateY(-3px);
+      box-shadow: 0 16px 35px rgba(199,21,133,0.4);
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      color: #777;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.8rem; }
+      main { padding: 120px 4% 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="powder" id="powder"></div>
+
+<header>
+  <a href="index.html" class="logo">Cozy Cakes Cy</a>
+  <a href="index.html" class="back-btn">← Назад к тортикам</a>
+</header>
+
+<main>
+  <h1>Заказать <span>свой идеальный торт</span></h1>
+  <p class="subtitle">Расскажи нам, какой торт мечтаешь — мы сделаем его волшебным ♡</p>
+
+  <form id="order-form">
+    <div class="form-group">
+      <label for="name">Ваше имя *</label>
+      <input type="text" id="name" name="name" required placeholder="Как к вам обращаться?">
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Телефон *</label>
+      <input type="tel" id="phone" name="phone" required placeholder="+7 (___) ___-__-__">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Чтобы отправить эскиз и подтверждение">
+    </div>
+
+    <div class="form-group">
+      <label for="date">Желаемая дата получения *</label>
+      <input type="date" id="date" name="date" required>
+    </div>
+
+    <div class="form-group">
+      <label for="flavor">Вкус торта</label>
+      <select id="flavor" name="flavor">
+        <option value="">Выберите основной вкус</option>
+        <option value="vanilla">Ванильный</option>
+        <option value="chocolate">Шоколадный</option>
+        <option value="redvelvet">Красный бархат</option>
+        <option value="berry">Ягодный</option>
+        <option value="carrot">Морковный</option>
+        <option value="other">Другой (напишите в комментариях)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="filling">Начинка / крем</label>
+      <input type="text" id="filling" name="filling" placeholder="Например: клубника + маскарпоне, солёная карамель...">
+    </div>
+
+    <div class="form-group">
+      <label for="weight">Примерный вес / количество порций</label>
+      <input type="text" id="weight" name="weight" placeholder="1.5 кг / 10–12 человек">
+    </div>
+
+    <div class="form-group">
+      <label for="design">Описание дизайна / пожелания</label>
+      <textarea id="design" name="design" placeholder="Цвета, декор, надпись, тематика, референсы... Чем подробнее — тем точнее попадём в мечту!"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="allergies">Аллергии / ограничения</label>
+      <textarea id="allergies" name="allergies" placeholder="Орехи, глютен, лактоза и т.д. — напишите, чтобы мы учли"></textarea>
+    </div>
+
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="delivery" value="yes"> Нужна доставка по городу</label>
+    </div>
+
+    <button type="submit" class="submit-btn">Отправить заказ →</button>
+  </form>
+</main>
+
+<footer>
+  <p>Мы свяжемся с вами в течение 1–2 часов (в рабочее время) ♡</p>
+  <p>Сладкие Слои © 2026</p>
+</footer>
+
+<script>
+function createPowderParticles() {
+  const powder = document.getElementById('powder');
+  const count = 90;
+
+  for (let i = 0; i < count; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    const size = Math.random() * 4 + 1.2;
+    particle.style.width = particle.style.height = `${size}px`;
+    particle.style.left = `${Math.random() * 100}vw`;
+    particle.style.animationDelay = `${Math.random() * 25}s`;
+    particle.style.animationDuration = `${Math.random() * 20 + 15}s`;
+    powder.appendChild(particle);
+  }
+}
+
+window.addEventListener('load', createPowderParticles);
+
+document.getElementById('order-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert('Спасибо за заказ! Мы получили вашу заявку и скоро свяжемся ♡\n(в реальном проекте здесь будет отправка на почту / в мессенджер)');
+  this.reset();
+});
+</script>
+
+</body>
+</html>
